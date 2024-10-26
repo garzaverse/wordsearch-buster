@@ -89,7 +89,10 @@ def main(argv=None):
     # keys = list(answers.keys())
     print(f"CHEATIN WORDS for '{user_letters}', len={num_letters}, words={total}")
 
-    headers = list(range(min_letters, num_letters + 1))
+    # headers = list(range(min_letters, num_letters + 1))
+    headers = []
+    for i in range(min_letters, num_letters + 1):
+        headers.append(f'{i} ({len(answers[i])})')
 
     print(tabulate(answers, headers=headers, tablefmt='outline'))
 
