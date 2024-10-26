@@ -1,2 +1,3 @@
-abbotc 3;3,4,1;6,1
-lampoon 3;8,7;1
+abbotc 3:3,4:1:6,1
+lampoon 3:8,7:1
+aenorrv 4:11,5:2,7:1
