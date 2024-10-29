@@ -1,4 +1,4 @@
-lampoon 3:8,7:1
+lampoon 4:8,7:1
 lamp
 loon
 loom
