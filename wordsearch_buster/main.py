@@ -12,7 +12,11 @@ def load_words():
     with open('data/words_alpha.txt') as word_file:
         valid_words = set(word_file.read().split())
 
-    return valid_words
+    # read extensions
+    with open('data/words_alpha-addendum.txt') as word_file:
+        more_valid_words = set(word_file.read().split())
+
+    return valid_words.union(more_valid_words)
 
 
 def main(argv=None):
