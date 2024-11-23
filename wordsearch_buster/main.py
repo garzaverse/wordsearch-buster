@@ -16,12 +16,16 @@ def load_words():
     with open('data/words_alpha-addendum.txt') as word_file:
         more_valid_words = set(word_file.read().split())
 
-    return valid_words.union(more_valid_words)
+    # read excludes
+    with open('data/words_alpha-excludes.txt') as word_file:
+        excluded_words = set(word_file.read().split())
+
+    return valid_words.union(more_valid_words), excluded_words
 
 
 def main(argv=None):
     # read dictionary
-    english_words = load_words()
+    english_words, excluded_words = load_words()
 
     # get letters from user (or default to command-line)
     if len(sys.argv) > 1:
@@ -41,11 +45,16 @@ def main(argv=None):
     dictionaries = {}
     # nb: tabular data type is a dictionary of lists. The key is the word length
     answers = {}
+    excluded = 0
     for i in range(min_letters, num_letters + 1):
         # start with empty lists
         dictionaries[i] = []
         answers[i] = []
     for word in english_words:
+        if word in excluded_words:
+          #print(f'EXCLUDE {word}')
+          excluded += 1
+          continue
         len_word = len(word)
         if min_letters <= len_word <= num_letters:
             dictionaries[len(word)].append(word)
@@ -91,13 +100,14 @@ def main(argv=None):
     #     sorted_answers[k] = sorted
     # endspace = ' '
     # keys = list(answers.keys())
-    print(f"CHEATIN WORDS for '{user_letters}', len={num_letters}, words={total}")
+    print(f"CHEATIN WORDS for '{user_letters}', len={num_letters}, words={total}, excluded={excluded}")
 
     # headers = list(range(min_letters, num_letters + 1))
     headers = []
-    for i in range(min_letters, num_letters + 1):
-        headers.append(f'{i} ({len(answers[i])})')
+    #for i in range(min_letters, num_letters + 1):
+    #    headers.append(f'{i} ({len(answers[i])})')
 
+    #print(tabulate(answers, headers=headers, tablefmt='outline'))
     print(tabulate(answers, headers=headers, tablefmt='outline'))
 
 
