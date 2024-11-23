@@ -147,3 +147,6 @@ dmypy.json
 
 # IDE files
 __pycharm_project_workspace.xml
+
+# vi/vim/nox
+*.swp
