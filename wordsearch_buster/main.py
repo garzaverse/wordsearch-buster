@@ -3,7 +3,6 @@
 
 import re
 import sys
-from typing import Sequence
 
 from tabulate import tabulate
 
@@ -26,6 +25,7 @@ def load_words():
 def main(argv=None):
     # read dictionary
     english_words, excluded_words = load_words()
+    print(f'WORDS: {type(english_words)}, {type(excluded_words)}')
 
     # get letters from user (or default to command-line)
     if len(sys.argv) > 1:
@@ -52,9 +52,8 @@ def main(argv=None):
         answers[i] = []
     for word in english_words:
         if word in excluded_words:
-          #print(f'EXCLUDE {word}')
-          excluded += 1
-          continue
+            excluded += 1
+            continue
         len_word = len(word)
         if min_letters <= len_word <= num_letters:
             dictionaries[len(word)].append(word)
@@ -75,7 +74,7 @@ def main(argv=None):
                 answers[i].append(word)
 
     # find the answer dictionary with the most entries
-    # get total words found
+    # get num_words words found
     # compile list of keys for empty answer dictionaries
     most = 0
     total = 0
@@ -90,7 +89,7 @@ def main(argv=None):
     # remove empty answer dictionaries
     for key in keys_to_remove:
         del answers[key]
-    for k,v in answers.items():
+    for k, v in answers.items():
         answers[k] = sorted(v)
 
     # sort words in each answer dictionary
@@ -104,10 +103,10 @@ def main(argv=None):
 
     # headers = list(range(min_letters, num_letters + 1))
     headers = []
-    #for i in range(min_letters, num_letters + 1):
+    # for i in range(min_letters, num_letters + 1):
     #    headers.append(f'{i} ({len(answers[i])})')
 
-    #print(tabulate(answers, headers=headers, tablefmt='outline'))
+    # print(tabulate(answers, headers=headers, tablefmt='outline'))
     print(tabulate(answers, headers=headers, tablefmt='outline'))
 
 
